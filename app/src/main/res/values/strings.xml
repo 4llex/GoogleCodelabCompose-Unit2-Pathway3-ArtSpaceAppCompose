@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Art Space App</string>
 
-    <!-- Artwork Images title -->
+    <!-- Artwork title -->
     <string name="title_img1">Psico Barba</string>
     <string name="title_img2">Pink Floyd</string>
     <string name="title_img3">Diablo</string>
@@ -9,6 +9,15 @@
     <string name="title_img5">Psico guitar</string>
     <string name="title_img6">Halloween</string>
     <string name="title_img7">Blues Pills</string>
+
+    <!-- Artwork Description -->
+    <string name="desc_img1">Psico Barba</string>
+    <string name="desc_img2">Pink Floyd</string>
+    <string name="desc_img3">Diablo</string>
+    <string name="desc_img4">Demon</string>
+    <string name="desc_img5">Psico guitar</string>
+    <string name="desc_img6">Halloween</string>
+    <string name="desc_img7">Blues Pills</string>
 
     <!-- Artwork Artist/year -->
     <string name="img_artist1">Unknown artist! - 2001</string>

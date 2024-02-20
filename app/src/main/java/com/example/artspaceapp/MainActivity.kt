@@ -20,6 +20,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,6 +31,7 @@ import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,6 +58,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ArtSpaceAppLayout() {
+    var currentStep by remember { mutableIntStateOf(1) }
+
+    val imgContent = getState(currentStep)
 
     Column(
         modifier = Modifier
@@ -69,7 +77,7 @@ fun ArtSpaceAppLayout() {
                 .border(4.dp, Red),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            ArtWorkWall()
+            ArtWorkWall(imgContent.imageResource, imgContent.imgContentDescription)
         }
         Row(
             modifier = Modifier
@@ -77,7 +85,7 @@ fun ArtSpaceAppLayout() {
                 .weight(2.0f, true)
                 .border(4.dp, Red)
         ) {
-            ArtworkDescriptor()
+            ArtworkDescriptor(imgContent.artworkTitle, imgContent.artworkArtist)
         }
         Row(
             modifier = Modifier
@@ -85,14 +93,21 @@ fun ArtSpaceAppLayout() {
                 .weight(1.0f, true)
                 .border(4.dp, Red)
         ) {
-            DisplayController()
+            DisplayController(
+                { currentStep = if (currentStep == 7) 1 else currentStep.plus(1) },
+                { currentStep = if (currentStep == 1) 7 else currentStep.dec()}
+            )
         }
 
     }
 }
 
 @Composable
-fun ArtWorkWall() {
+fun ArtWorkWall(
+    imageResource: Int,
+    imgContentDescription: Int,
+    modifier: Modifier = Modifier
+) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 64.dp),
     ) {
@@ -100,15 +115,15 @@ fun ArtWorkWall() {
             modifier = Modifier
                 .padding(16.dp, 8.dp, 16.dp, 16.dp)
                 .border(2.dp, Black),
-            painter = painterResource(id = R.drawable.img6),
+            painter = painterResource(imageResource),
             contentScale = ContentScale.Crop,
-            contentDescription = null//TODO: need to be set for each image description
+            contentDescription = stringResource(id = imgContentDescription)
         )
     }
 }
 
 @Composable
-fun ArtworkDescriptor() {
+fun ArtworkDescriptor(artworkTitle: Int, artworkArtist: Int, modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier
             .padding(16.dp, 16.dp)
@@ -120,7 +135,7 @@ fun ArtworkDescriptor() {
             modifier = Modifier
                 .border(1.dp, Color.Gray)
                 .fillMaxWidth(),
-            text = "Artwork Title",
+            text = stringResource(id = artworkTitle),
             textAlign = TextAlign.Center,
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold
@@ -130,14 +145,17 @@ fun ArtworkDescriptor() {
             modifier = Modifier
                 .border(1.dp, Color.Gray)
                 .fillMaxWidth(),
-            text = "Artwork Artist (Year)",
+            text = stringResource(id = artworkArtist),
             textAlign = TextAlign.Center
         )
     }
 }
 
 @Composable
-fun DisplayController() {
+fun DisplayController(
+    onNextClick: () -> Unit,
+    onPreviousClick: () -> Unit
+) {
     Row(
         modifier = Modifier
             .padding(8.dp)
@@ -147,7 +165,7 @@ fun DisplayController() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Button(
-            onClick = { /*TODO*/ },
+            onClick = onPreviousClick,
             modifier = Modifier
                 .weight(1f)
                 .padding(12.dp, 8.dp)
@@ -156,7 +174,7 @@ fun DisplayController() {
             Text(text = "Previous")
         }
         Button(
-            onClick = { /*TODO*/ },
+            onClick = onNextClick,
             modifier = Modifier
                 .weight(1f)
                 .padding(12.dp, 8.dp)
@@ -176,4 +194,54 @@ fun GreetingPreview() {
     ArtSpaceAppTheme {
         ArtSpaceAppLayout()
     }
+}
+
+fun getState(currentStep: Int): ImageObject {
+    val imgObj = ImageObject()
+
+    when (currentStep) {
+        1 -> {
+            imgObj.imageResource = R.drawable.img1
+            imgObj.imgContentDescription = R.string.desc_img1
+            imgObj.artworkTitle = R.string.title_img1
+            imgObj.artworkArtist = R.string.img_artist1
+        }
+        2 -> {
+            imgObj.imageResource = R.drawable.img2
+            imgObj.imgContentDescription = R.string.desc_img2
+            imgObj.artworkTitle = R.string.title_img2
+            imgObj.artworkArtist = R.string.img_artist2
+        }
+        3 -> {
+            imgObj.imageResource = R.drawable.img3
+            imgObj.imgContentDescription = R.string.desc_img3
+            imgObj.artworkTitle = R.string.title_img3
+            imgObj.artworkArtist = R.string.img_artist3
+        }
+        4 -> {
+            imgObj.imageResource = R.drawable.img4
+            imgObj.imgContentDescription = R.string.desc_img4
+            imgObj.artworkTitle = R.string.title_img4
+            imgObj.artworkArtist = R.string.img_artist4
+        }
+        5 -> {
+            imgObj.imageResource = R.drawable.img5
+            imgObj.imgContentDescription = R.string.desc_img5
+            imgObj.artworkTitle = R.string.title_img5
+            imgObj.artworkArtist = R.string.img_artist5
+        }
+        6 -> {
+            imgObj.imageResource = R.drawable.img6
+            imgObj.imgContentDescription = R.string.desc_img6
+            imgObj.artworkTitle = R.string.title_img6
+            imgObj.artworkArtist = R.string.img_artist6
+        }
+        else -> {
+            imgObj.imageResource = R.drawable.img7
+            imgObj.imgContentDescription = R.string.desc_img7
+            imgObj.artworkTitle = R.string.title_img7
+            imgObj.artworkArtist = R.string.img_artist7
+        }
+    }
+    return imgObj
 }
