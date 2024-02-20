@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Art Space App</string>
+
+    <!-- Artwork Images title -->
+    <string name="title_img1">Psico Barba</string>
+    <string name="title_img2">Pink Floyd</string>
+    <string name="title_img3">Diablo</string>
+    <string name="title_img4">Demon</string>
+    <string name="title_img5">Psico guitar</string>
+    <string name="title_img6">Halloween</string>
+    <string name="title_img7">Blues Pills</string>
+
+    <!-- Artwork Artist/year -->
+    <string name="img_artist1">Unknown artist! - 2001</string>
+    <string name="img_artist2">Unknown artist! - 2002</string>
+    <string name="img_artist3">Unknown artist! - 2003</string>
+    <string name="img_artist4">Unknown artist! - 2004</string>
+    <string name="img_artist5">Unknown artist! - 2005</string>
+    <string name="img_artist6">Unknown artist! - 2006</string>
+    <string name="img_artist7">Unknown artist! - 2007</string>
 </resources>
