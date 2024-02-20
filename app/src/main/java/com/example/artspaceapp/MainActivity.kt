@@ -100,7 +100,7 @@ fun ArtWorkWall() {
             modifier = Modifier
                 .padding(16.dp, 8.dp, 16.dp, 16.dp)
                 .border(2.dp, Black),
-            painter = painterResource(id = R.drawable.androidparty),
+            painter = painterResource(id = R.drawable.img6),
             contentScale = ContentScale.Crop,
             contentDescription = null//TODO: need to be set for each image description
         )
